@@ -4,8 +4,6 @@ import LoadingAnimation from '../components/LoadingAnimation';
 import GeneratePostButton from '../components/GeneratePostButton';
 
 // API Keys from environment variables
-const AZURE_GPT4_API_KEY = "Fj1KPt7grC6bAkNja7daZUstpP8wZTXsV6Zjr2FOxkO7wsBQ5SzQJQQJ99BCACHYHv6XJ3w3AAAAACOGL3Xg";
-const AZURE_DALLE_API_KEY = "https://chrlin-openai02.openai.azure.com/openai/deployments/dall-e-3/images/generations?api-version=2024-02-01";
 
 const defaultCharLimits = {
   Twitter: 280,
@@ -23,8 +21,9 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  
   const generateTextPost = async (payload) => {
-    const endpoint = 'https://ai-aihackthonhub282549186415.openai.azure.com/openai/deployments/gpt4/chat/completions?api-version=2024-02-01';
+    const endpoint = 'https://ai-aihackthonhub282549186415.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-01';
     try {
       const response = await axios.post(endpoint, {
         messages: [
@@ -35,15 +34,16 @@ const Dashboard = () => {
       }, {
         headers: {
           'Content-Type': 'application/json',
-          'api-key': AZURE_GPT4_API_KEY
+          'api-key': 'Fj1KPt7grC6bAkNja7daZUstpP8wZTXsV6Zjr2FOxkO7wsBQ5SzQJQQJ99BCACHYHv6XJ3w3AAAAACOGL3Xg' // 正确 API Key
         }
       });
       return response.data.choices[0].message.content;
     } catch (error) {
-      console.error('GPT-4 API Error:', error.response ? error.response.data : error.message);
+      console.error('GPT-4 Error:', error.response?.data?.error || error.message);
       throw error;
     }
   };
+
 
   const generateImagePost = async (payload) => {
     const endpoint = 'https://chrlin-openai02.openai.azure.com/openai/deployments/dall-e-3/images/generations?api-version=2024-02-01';
@@ -55,12 +55,12 @@ const Dashboard = () => {
       }, {
         headers: {
           'Content-Type': 'application/json',
-          'api-key': AZURE_DALLE_API_KEY
+          'api-key': '8FWd2D4me50VFU19E9jKXo1ABOO1M7Cr6c5GhFvP6sst2n3soQKuJQQJ99BCACYeBjFXJ3w3AAABACOGy8NL' // 正确 API Key
         }
       });
-      return response.data.data[0].url;
+      return response.data.data[0].url; // 确保路径正确
     } catch (error) {
-      console.error('DALL-E API Error:', error.response ? error.response.data : error.message);
+      console.error('DALL-E API Error:', error.response?.data || error.message);
       throw error;
     }
   };
