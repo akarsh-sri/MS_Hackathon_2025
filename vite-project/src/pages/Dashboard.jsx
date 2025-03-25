@@ -131,7 +131,6 @@ const Dashboard = () => {
             content: captionUserMessage,
           },
         ],
-        max_tokens: targetPlatform === 'twitter' ? 30 : 50,
       },
       {
         headers: {
@@ -196,7 +195,6 @@ const Dashboard = () => {
             content: captionUserMessage,
           },
         ],
-        max_tokens: targetPlatform === 'twitter' ? 30 : 50,
       },
       {
         headers: {
